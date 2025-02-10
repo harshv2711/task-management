@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static './css/main.css' %}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <title>Pivot Project Management</title>
+
+    <script>
+        $(document).ready(function () {
+
+            $(".nav-item").click(function () {
+                $(this).find(".dropdown-wrapper").slideToggle(100)
+            })
+        })
+    </script>
+</head>
+
+<body>
+    {% include "inc/navbar.html"%}
+    {% block content %}
+    {% endblock %}
+
+</body>
+
+</html>

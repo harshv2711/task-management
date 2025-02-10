@@ -1,0 +1,36 @@
+<div>Hi {{userFirstName}},</div>
+
+I wanted to let you know that {{assignedBy}} has added a new task to your task list. Please take a moment to review it
+at your earliest convenience. Task details
+<ul>
+    <li>
+        <strong>Work Title:</strong>
+        {{clientWorkObj.work_name}}
+    </li>
+    <li>
+        <strong>Client:</strong>
+        {{clientWorkObj.client.client_name}}
+    </li>
+    <li>
+        <strong>Updated Work Description:</strong>
+        {{clientWorkObj.work_description}}
+    </li>
+    <li>
+        <strong>Proposal Date:</strong>
+        {{clientWorkObj.proposal_date}}
+    </li>
+    <li>
+        <strong>Work Started:</strong>
+        {{clientWorkObj.work_started_at}}
+    </li>
+    <li>
+        <strong>Due Date:</strong>
+        {{clientWorkObj.due_date}}
+    </li>
+    <li>
+        <strong>Current Status:</strong>
+        {{clientWorkObj.status}}
+    </li>
+</ul>
+
+Thanks,

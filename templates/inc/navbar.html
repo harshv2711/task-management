@@ -1,0 +1,41 @@
+{% load static %}
+<div class="navbar">
+    <div class="container">
+        <a href="{% url 'webpages-home' %}" class="navbar-brand-link">
+            <img class="navbar-brand" src="{% static './img/Final_logo.png' %}" alt="" srcset="">
+        </a>
+
+        <nav>
+            <div class=""></div>
+            <ul class="primary-nav">
+                <li class="nav-item">
+                    <a href="#" class="nav-link nav-link-active">Dashboard</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link">Clients</a>
+                </li>
+            </ul>
+        </nav>
+
+        <ul class="secondary-nav">
+           
+            <li class="nav-item">
+                <a href="#" class="nav-link nav-link-user">
+                    <!-- <img class="user-account-icon" class="notification-icon" src="{% static './img/PIVOT-ic 1.png' %}"
+                        alt="" srcset=""> -->
+                        {{user.email}}
+                </a>
+                <div class="dropdown-wrapper">
+                    <div class="dropdown">
+                        <div class="dropdown-item">
+                            <a href="{% url 'profile' %}" class="dropdown-link">Profile</a>
+                        </div>
+                        <div class="dropdown-item">
+                            <a href="{% url 'logout' %}" class="dropdown-link">Log Out</a>
+                        </div>
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </div>
+</div>

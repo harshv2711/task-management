@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static './css/main.css' %}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <title>Pivot Project Management</title>
+   
+    <script>
+
+    
+        $(document).ready(function () {
+
+            $(".nav-item").click(function(){
+                $(this).find(".dropdown-wrapper").slideToggle(100)
+            })
+
+            $(".team-member-work-card-form-wrapper").hide()
+            $("#team1").show()
+            $(".team-nav-bar-tab").click(function () {
+                $(".team-nav-bar-tab").removeClass("team-nav-bar-tab-active")
+                $(this).addClass("team-nav-bar-tab-active")
+                $(".team-wrapper").hide()
+                $(`#${$(this).attr("team-id")}`).fadeToggle()
+            })
+
+            $(".team-nav-bar-item-1").click(function () {
+                $(".nav-bar-tab-indicator").css("width", $(this).css("width"))
+                $(".nav-bar-tab-indicator").animate({
+                    left: "3px"
+                }, 200)
+            })
+
+            $(".team-nav-bar-item-2").click(function () {
+                $(".nav-bar-tab-indicator").css("width", $(this).css("width"))
+                $(".nav-bar-tab-indicator").animate({
+                    left: "144px"
+                }, 200)
+
+            })
+
+            $(".team-nav-bar-item-3").click(function () {
+                $(".nav-bar-tab-indicator").css("width", $(this).css("width"))
+                $(".nav-bar-tab-indicator").animate({
+                    left: "262px"
+                }, 200)
+
+            })
+
+            $(".add-work-btn").click(function () {
+                var createFormWrapper = $(this).parents(".team-member-header").siblings(".create-form-wrapper")
+                $(".team-member-work-card-form-create-work-wrapper").appendTo(createFormWrapper).show();
+                var teamMemberEmailId =
+                    $(this).parents(".team-member-header").siblings(".team-member-email-id").text()
+
+                $(".team-member-work-card-form-create-work-wrapper").find("#teamMemberEmail").attr("value", teamMemberEmailId)
+
+            })
+
+            $(".close-team-member-work-card-form-create-work-btn").click(function () {
+                $(".team-member-work-card-form-create-work-wrapper").hide()
+            })
+
+
+            $(".team-nav-bar-tab").first().addClass("team-nav-bar-tab-active");
+        })
+
+        $(document).ready(function () {
+            // Store the form template as a jQuery object
+            let clientWorkUpdatedFormTemplate = $(".team-member-work-card-update-form-wrapper").first().clone();
+        
+            $(".edit-team-member-work-card").click(function () {
+                let parentCard = $(this).parents(".team-member-work-card").find(".updated-form-wrapper");
+                let existingForm = parentCard.find(".team-member-work-card-update-form-wrapper");
+        
+                // Toggle form: If it exists, remove it; if not, append and show it
+                if (existingForm.length) {
+                    existingForm.slideUp(300, function () {
+                        $(this).remove();
+                    });
+                } else {
+                    let clientWorkUpdatedForm = clientWorkUpdatedFormTemplate.clone();
+        
+                    // Populate the cloned form with data attributes from the clicked element
+                    clientWorkUpdatedForm.find("#workDescription").attr("value", $(this).attr("work-description"));
+                    clientWorkUpdatedForm.find("#workDescription").val($(this).attr("work-description"));
+
+                    clientWorkUpdatedForm.find("#teamMemberEmail").attr("value", $(this).attr("team-member-email"));
+                    clientWorkUpdatedForm.find("#clientWorkId").attr("value", $(this).attr("client-work-id"));
+                    clientWorkUpdatedForm.find("#workTitle").attr("value", $(this).attr("work-title"));
+                    clientWorkUpdatedForm.find("#proposalStartDateInput").attr("value", $(this).attr("proposal-start-date"));
+                    clientWorkUpdatedForm.find("#workStartInput").attr("value", $(this).attr("work-start-date"));
+                    clientWorkUpdatedForm.find("#dueDateInput").attr("value", $(this).attr("due-date"));
+                    clientWorkUpdatedForm.find("#statusInput").find(`.option-${$(this).attr("status")}`).prop("selected", true);
+                    clientWorkUpdatedForm.find("#clientInput").find(`.option-${$(this).attr("client-id")}`).prop("selected", true);
+                    clientWorkUpdatedForm.find(".delete-client-work-cta").attr("href", `/delete-client-work/${$(this).attr("client-work-id")}/`)
+                    
+                    // Append and slide down smoothly
+                    clientWorkUpdatedForm.hide().appendTo(parentCard).slideDown();
+                }
+            });
+
+
+           
+        });
+
+       
+        
+
+    </script>
+    <style>
+        select#clientInput {
+            width: 100%;
+        }
+
+     
+    </style>
+    
+</head>
+
+<body>
+
+    <div class="team-member-work-card-form-wrapper team-member-work-card-update-form-wrapper">
+        <div class="form-header">
+            <h1 class="form-header-title">
+                Update Work
+                <span class="team-member-work-card-update-form-close-btn form-close-btn">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                        class="feather feather-x">
+                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                    </svg>
+                </span>
+            </h1>
+        </div>
+        <form action="{% url 'webpages-updated-client-work' %}" method="post"
+            class="team-member-work-card-form team-member-work-card-updated-form">
+            {% csrf_token %}
+            <input type="text" value="joshua@pivotmkg.com" name="teamMemberEmail" id="teamMemberEmail" hidden>
+            <input type="number" value="1" name="clientWorkId" id="clientWorkId" hidden>
+
+            <div class="form-group form-group-work-title">
+                <label for="workTitle">Work Title</label>
+                <input required type="text" name="workTitle" id="workTitle">
+            </div>
+            <div class="form-group">
+                <label for="clientInput">Client </label>
+               
+            </div>
+            <select required name="client" id="clientInput">
+                {% for client in clientList %}
+                <option value="{{client.id}}" class="option-{{client.id}}">{{client.client_name}}</option>
+                {% endfor %}
+            </select>
+            <div class="form-group">
+                <label for="workDescription">Work Description</label>
+            </div>
+            <textarea id="workDescription" name="workDescription" required>
+
+            </textarea>
+            <div class="form-group">
+                <label for="proposalStartDateInput">Proposal Start Date</label>
+                <input type="date" name="proposalStartDate" id="proposalStartDateInput">
+            </div>
+            <div class="form-group">
+                <label for="workStartInput">Work Start</label>
+                <input required type="date" name="workStart" id="workStartInput">
+            </div>
+            <div class="form-group">
+                <label for="dueDateInput">Due Date </label>
+                <input required type="date" name="dueDate" id="dueDateInput">
+            </div>
+            <div class="form-group">
+                <label for="statusInput">Status </label>
+                <select required name="status" id="statusInput">
+                    <option value="in_queue" class="option-in_queue">In queue</option>
+                    <option value="ongoing" class="option-ongoing">Ongoing</option>
+                    <option value="waiting_for_approval" class="option-waiting_for_approval">Waiting for approval
+                    </option>
+                    <option value="completed" class="option-completed">completed</option>
+                    <option value="on_hold" class="option-on_hold">On Hold</option>
+                    <option value="cancelled" class="option-cancelled">Cancelled</option>
+                </select>
+            </div>
+            <div class="form-btn-wrapper"> 
+                <a href="#" class="delete-client-work-cta">Delete</a>
+                <button type="submit">Update</button>
+            </div>
+            <div class="delete-wrapper">
+                <small class="note">
+                Are you sure you want to delete this? This action cannot be undone.
+                </small>
+                <div class="delete-btn-wrapper">
+                     <span class="confirm-delete-no-cta">No</span>
+                     <a href="#" class="confirm-delete-yes-cta">Confirm</a>
+                </div>
+            </div>
+           
+        </form>
+    </div>
+    <!--  -->
+
+    <div class="team-member-work-card-form-create-work-wrapper">
+        <div class="form-header">
+            <h1 class="form-header-title">
+                Assign Work
+                <span class="close-team-member-work-card-form-create-work-btn form-close-btn">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                        class="feather feather-x">
+                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                    </svg>
+                </span>
+            </h1>
+        </div>
+        <form action="{% url 'webpages-create-client-work' %}" method="post" class="team-member-work-card-form">
+            {% csrf_token %}
+            <input type="text" value="" name="teamMemberEmail" id="teamMemberEmail" hidden>
+            <div class="form-group form-group-work-title">
+                <label for="workTitle">Work Title</label>
+                <input required type="text" name="workTitle" id="workTitle">
+            </div>
+            <div class="form-group">
+                <label for="clientInput">Client </label>
+            </div>
+            <select required name="client" id="clientInput">
+                {% for client in clientList %}
+                <option value="{{client.id}}">{{client.client_name}}</option>
+                {% endfor %}
+            </select>
+            <div class="form-group">
+                <label for="workDescription2">Work Description</label>
+            </div>
+            <textarea id="workDescription2" name="workDescription" required style="width: 100%;">
+            </textarea>
+                
+
+            <div class="form-group">
+                <label for="proposalStartDateInput">Proposal Start Date</label>
+                <input required type="date" name="proposalStartDate" id="proposalStartDateInput">
+            </div>
+           
+            <div class="form-group">
+                <label for="dueDateInput">Due Date </label>
+                <input required type="date" name="dueDate" id="dueDateInput">
+            </div>
+            <div class="form-group">
+                <label for="statusInput">Status </label>
+                <select required name="status" id="statusInput">
+                    <option selected value="in_queue">In queue</option>
+                    <option value="ongoing">Ongoing</option>
+                    <option value="waiting_for_approval">Waiting for approval</option>
+                    <option value="completed">completed</option>
+                    <option value="on_hold">On Hold</option>
+                    <option value="cancelled">Cancelled</option>
+                </select>
+            </div>
+            <button type="submit" class="create-work-btn">Create</button>
+
+        </form>
+    </div>
+
+    {% include "inc/navbar.html"%}
+
+    <section class="team-section">
+        <div class="container">
+            <div class="team-nav-bar">
+                <span class="nav-bar-tab-indicator"></span>
+                {% for team in teamList %}
+                <div class="team-nav-bar-item team-nav-bar-item-{{team.id}}">
+                    <button class="team-nav-bar-tab" team-id="team{{team.id}}">
+                        {{team.team_name}}
+                    </button>
+                </div>
+                {% endfor %}
+
+                <div class="team-nav-bar-item">
+                    <button class="add-team-btn">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                            class="feather feather-plus">
+                            <line x1="12" y1="5" x2="12" y2="19"></line>
+                            <line x1="5" y1="12" x2="19" y2="12"></line>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+            <div class="teams-wrapper">
+                {% for team in teamList %}
+                <!-- team 1 start  -->
+                <div class="team-wrapper" id="team{{team.id}}">
+                    <div class="team creative-team">
+                        <!-- Slider main container -->
+                        <div class="swiper">
+                            <!-- Additional required wrapper -->
+                            <div class="swiper-wrapper">
+                                {% for teamMember in team.teamMembers %}
+                                <!-- Slides -->
+                                <div class="swiper-slide">
+                                    <!-- team member 1 start  -->
+                                    <div class="team-member team-member-1">
+                                        <div class="team-member-header">
+                                            <h1 class="team-member-name">{{teamMember.user.first_name}}</h1>
+                                            <small class="number-work">{{teamMember.numberOfClientWork }} Items in Queue
+                                              
+                                                {% if user.email == teamMember.user.email %}
+                                                    <span class="add-work-btn">Add</span>
+                                                {% elif user.is_superuser %}
+                                                    <span class="add-work-btn">Add</span>
+                                                {% endif %}
+                                            </small>
+                                        </div>
+                                        <div class="create-form-wrapper">
+                                        </div>
+                                        <div class="team-member-work-list">
+                                            {% for teamMemberClientWork in teamMember.teamMemberClientWorkList %}
+                                            <!-- card start  -->
+                                            <figure class="team-member-work-card">
+                                              
+                                                <figcaption class="team-member-work-card-info-wrapper">
+                                                    <h1
+                                                        class="team-member-work-card-info-item team-member-work-card-info-title">
+                                                        {{teamMemberClientWork.work_name}}
+
+                                                        {% if user.email == teamMember.user.email or user.is_superuser %}
+                                                        <button work-title="{{teamMemberClientWork.work_name}}"
+                                                            client-id="{{teamMemberClientWork.client.id}}"
+                                                            proposal-start-date="{{teamMemberClientWork.proposal_date|date:'Y-m-d'}}"
+                                                            work-start-date="{{teamMemberClientWork.work_started_at|date:'Y-m-d'}}"
+                                                            due-date="{{teamMemberClientWork.due_date|date:'Y-m-d'}}"
+                                                            status="{{teamMemberClientWork.status}}"
+                                                            client-work-id="{{teamMemberClientWork.id}}"
+                                                            team-member-email="{{teamMemberClientWork.assign_to.email}}"
+                                                            work-description=" {{teamMemberClientWork.work_description}}"
+                                                            class="edit-team-member-work-card">
+                                                            Edit
+                                                        </button>
+                                                        {% elif user.is_superuser %}
+                                                        <button work-title="{{teamMemberClientWork.work_name}}"
+                                                        client-id="{{teamMemberClientWork.client.id}}"
+                                                        proposal-start-date="{{teamMemberClientWork.proposal_date|date:'Y-m-d'}}"
+                                                        work-start-date="{{teamMemberClientWork.work_started_at|date:'Y-m-d'}}"
+                                                        due-date="{{teamMemberClientWork.due_date|date:'Y-m-d'}}"
+                                                        status="{{teamMemberClientWork.status}}"
+                                                        client-work-id="{{teamMemberClientWork.id}}"
+                                                        team-member-email="{{teamMemberClientWork.assign_to.email}}"
+                                                        work-description=" {{teamMemberClientWork.work_description}}"
+                                                        class="edit-team-member-work-card">
+                                                        Edit
+                                                    </button>
+                                                        {% endif %}
+                                                    </h1>
+
+                                                    <div class="updated-form-wrapper"></div>
+                                                    <p class="team-member-work-card-info-item">
+                                                        Description:-
+                                                    </p>
+                                                    <p class="team-member-work-card-info-item team-member-work-card-info-item-description">
+                                                        {{teamMemberClientWork.work_description}}
+                                                    </p>
+                                                    <p
+                                                        class="team-member-work-card-info-item team-member-work-card-info-item-client">
+                                                        Client:-
+                                                        <span>
+                                                            {{teamMemberClientWork.client.client_name}}
+                                                        </span>
+                                                    </p>
+                                                    <p
+                                                        class="team-member-work-card-info-item team-member-work-card-info-item-proposal-start-date">
+                                                        Proposal Start Date:-
+                                                        <span>
+                                                            {{teamMemberClientWork.proposal_date|date:"j M Y"}}</span>
+                                                    </p>
+                                                    <p
+                                                        class="team-member-work-card-info-item team-member-work-card-info-item-work-start">
+                                                        Work Start:- <span>
+                                                            {{teamMemberClientWork.work_started_at|date:"j M Y"}}</span>
+                                                    </p>
+                                                    <p
+                                                        class="team-member-work-card-info-item team-member-work-card-info-item-due-date">
+                                                        Due Date:-
+                                                        <span>{{teamMemberClientWork.due_date|date:"j M Y"}}</span>
+                                                    </p>
+                                                    <p
+                                                        class="team-member-work-card-info-item team-member-work-card-info-item-status">
+                                                        Status:-
+                                                        <span class="status-indicator-wrapper">
+                                                            {{teamMemberClientWork.status}}
+                                                            <!-- <span class="status-indicator"></span> -->
+                                                        </span>
+                                                    </p>
+
+                                                    <div class="datetimestamp-wrapper">
+                                                        <p
+                                                            class="team-member-work-card-info-item team-member-work-card-info-item-created-at">
+                                                            Created at:- <span class="date-time-stamp">
+                                                                {{teamMemberClientWork.created_at}}
+                                                            </span></p>
+                                                        <p
+                                                            class="team-member-work-card-info-item team-member-work-card-info-item-updated-at">
+                                                            Updated at:- <span
+                                                                class="date-time-stamp">{{teamMemberClientWork.updated_at}}</span>
+                                                        </p>
+                                                    </div>
+                                                </figcaption>
+                                               
+                                            </figure>
+                                            <!-- card end  -->
+                                            {% endfor %}
+
+
+
+                                        </div>
+                                        <small class="team-member-email-id">{{teamMember.user.email}}</small>
+
+                                    </div>
+                                    <!-- team member 1 end  -->
+                                </div>
+                                {% endfor %}
+                            </div>
+                            <!-- If we need pagination -->
+                            <!-- <div class="swiper-pagination"></div> -->
+
+                            <!-- If we need navigation buttons -->
+                            <!-- <div class="swiper-button-prev"></div> -->
+                            <!-- <div class="swiper-button-next"></div> -->
+
+                            <!-- If we need scrollbar -->
+                            <div class="swiper-scrollbar"></div>
+                        </div>
+                    </div>
+                </div>
+                <!-- team 1 end  -->
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <script>
+        const swiper = new Swiper('.swiper', {
+            // Optional parameters
+            loop: false,
+            breakpoints: {
+                // when window width is >= 320px
+                320: {
+                    slidesPerView: 2,
+                    spaceBetween: 20
+                },
+                // when window width is >= 480px
+                480: {
+                    slidesPerView: 3,
+                    spaceBetween: 30
+                },
+                // when window width is >= 640px
+                640: {
+                    slidesPerView: 4,
+                    spaceBetween: 9
+                }
+            },
+            // If we need pagination
+            pagination: {
+                el: '.swiper-pagination',
+            },
+
+            // Navigation arrows
+            navigation: {
+                nextEl: '.swiper-button-next',
+                prevEl: '.swiper-button-prev',
+            },
+
+            // And if we need scrollbar
+            scrollbar: {
+                el: '.swiper-scrollbar',
+            },
+        });
+    </script>
+
+</body>
+
+</html>

@@ -1,0 +1,17 @@
+<div>Hi {{userFirstName}},</div>
+
+<p>The following task assigned to you has been deleted by {{assignedBy}}:</p>
+
+<ul>
+    <li><strong>Work Title:</strong> {{clientWorkObj.work_name}}</li>
+    <li><strong>Client:</strong> {{clientWorkObj.client.client_name}}</li>
+    <li><strong>Work Description:</strong> {{clientWorkObj.work_description}}</li>
+    <li><strong>Proposal Date:</strong> {{clientWorkObj.proposal_date}}</li>
+    <li><strong>Work Started:</strong> {{clientWorkObj.work_started_at}}</li>
+    <li><strong>Due Date:</strong> {{clientWorkObj.due_date}}</li>
+    <li><strong>Status Before Deletion:</strong> {{clientWorkObj.status}}</li>
+</ul>
+
+<p>If this deletion was unexpected or you need further clarification, please reach out.</p>
+
+<p>Thanks,</p>
