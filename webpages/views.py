@@ -25,6 +25,8 @@ def home(request):
         return redirect("webpages-new-user-welcome")
     
     teamList = models.Team.objects.all()
+    teamList = models.UserTeamViewPermission.objects.filter(user=request.user.id)
+    teamList = [i.team for i in teamList]
     print(teamList)
 
     for team in teamList:

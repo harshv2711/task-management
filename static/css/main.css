@@ -720,15 +720,3 @@ textarea#workDescription {
     border: 1px solid gray;
     box-sizing: border-box;
 }
-
-.nav-bar-tab-indicator {
-    display: none;
-}
-
-.team-nav-bar-tab-active {
-    transition: .3s ease-in-out;
-    border-radius: 24px;
-    color: white;
-    background: #181818;
-    /* box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15) !important; */
-}
