@@ -15,6 +15,7 @@ from django.shortcuts import render
 from django.template.loader import render_to_string
 from django.utils.html import strip_tags
 
+
 class CustomUserCreationForm(forms.ModelForm):
     password1 = forms.CharField(widget=forms.PasswordInput, label="Password")
     password2 = forms.CharField(widget=forms.PasswordInput, label="Confirm Password")

@@ -10,7 +10,20 @@ import threading
 # Create your views here.
 
 @login_required(login_url=reverse_lazy('login')) 
+def newUserWelcome(request):
+
+    if models.TeamMember.objects.filter(user=request.user.id).exists():
+        return redirect("webpages-home")
+    else:
+        return render(request, "new-user-welcome.html")
+
+
+@login_required(login_url=reverse_lazy('login')) 
 def home(request):
+
+    if not models.TeamMember.objects.filter(user=request.user.id).exists():
+        return redirect("webpages-new-user-welcome")
+    
     teamList = models.Team.objects.all()
     print(teamList)
 

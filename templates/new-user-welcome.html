@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static './css/main.css' %}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <title>Pivot Project Management</title>
+
+    <style>
+        .hero-section {
+            padding: 1em 2em;
+        }
+
+        .section-header {
+            margin: auto;
+            max-width: 720px;
+            text-align: left;
+            padding: 1em;
+        }
+
+        p.section-header-description {
+            max-width: 532px;
+            margin: 1em 0;
+            font-size: 14px;
+            font-weight: 500;
+            line-height: 19px;
+        }
+
+        .hero-section {
+            display: grid;
+            align-items: center;
+            height: 50vh;
+        }
+    </style>
+</head>
+
+<body>
+    
+
+    <section class="hero-section">
+        <div class="container">
+            <div class="section-header">
+                <h1 class="section-header-title">Welcome to SlayBoard!
+                    <br> We're excited to have you on board. 🎉
+                </h1>
+                <p class="section-header-description">
+                    Your account is set up, and soon you'll get access to your dashboard, where you can manage tasks,
+                    collaborate with your team.
+                </p>
+                <p class="section-header-description">
+                    We'll notify you as soon as your dashboard is ready.
+                </p>
+                <p class="section-header-description">
+                    Get ready to slay your tasks! 🔥
+                </p>
+            </div>
+        </div>
+    </section>
+
+
+</body>
+
+</html>
