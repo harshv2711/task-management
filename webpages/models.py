@@ -84,3 +84,18 @@ class TeamMember(models.Model):
 
     def __str__(self):
         return f"{self.user} in {self.team}"
+
+
+class UserTeamViewPermission(models.Model):
+    class Meta:
+        verbose_name = "User Team View Permission"
+        verbose_name_plural = "User Team View Permissions"
+
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    team = models.ForeignKey(Team, on_delete=models.CASCADE)
+
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return f"{self.user.first_name} - {self.user.email} can view {self.team.team_name}"
