@@ -1,0 +1,20 @@
+[0;1;32m●[0m gunicorn-task.service - Gunicorn instance for Task Management System
+     Loaded: loaded (]8;;file://srv658856/etc/systemd/system/gunicorn-task.service/etc/systemd/system/gunicorn-task.service]8;;; [0;1;32menabled[0m; preset: [0;1;32menabled[0m)
+     Active: [0;1;32mactive (running)[0m since Tue 2025-02-11 15:47:53 UTC; 12s ago
+   Main PID: 301849 (gunicorn)
+      Tasks: 4 (limit: 4658)
+     Memory: 93.1M (peak: 93.3M)
+        CPU: 971ms
+     CGroup: /system.slice/gunicorn-task.service
+             ├─[0;38;5;245m301849 /var/www/task-management/venv/bin/python3 /var/www/task-management/venv/bin/gunicorn --workers 3 --bind unix:/var/www/task-management/gunicorn.sock project_management.wsgi:application[0m
+             ├─[0;38;5;245m301850 /var/www/task-management/venv/bin/python3 /var/www/task-management/venv/bin/gunicorn --workers 3 --bind unix:/var/www/task-management/gunicorn.sock project_management.wsgi:application[0m
+             ├─[0;38;5;245m301851 /var/www/task-management/venv/bin/python3 /var/www/task-management/venv/bin/gunicorn --workers 3 --bind unix:/var/www/task-management/gunicorn.sock project_management.wsgi:application[0m
+             └─[0;38;5;245m301852 /var/www/task-management/venv/bin/python3 /var/www/task-management/venv/bin/gunicorn --workers 3 --bind unix:/var/www/task-management/gunicorn.sock project_management.wsgi:application[0m
+
+Feb 11 15:47:53 srv658856 systemd[1]: Started gunicorn-task.service - Gunicorn instance for Task Management System.
+Feb 11 15:47:53 srv658856 gunicorn[301849]: [2025-02-11 15:47:53 +0000] [301849] [INFO] Starting gunicorn 23.0.0
+Feb 11 15:47:53 srv658856 gunicorn[301849]: [2025-02-11 15:47:53 +0000] [301849] [INFO] Listening at: unix:/var/www/task-management/gunicorn.sock (301849)
+Feb 11 15:47:53 srv658856 gunicorn[301849]: [2025-02-11 15:47:53 +0000] [301849] [INFO] Using worker: sync
+Feb 11 15:47:53 srv658856 gunicorn[301850]: [2025-02-11 15:47:53 +0000] [301850] [INFO] Booting worker with pid: 301850
+Feb 11 15:47:53 srv658856 gunicorn[301851]: [2025-02-11 15:47:53 +0000] [301851] [INFO] Booting worker with pid: 301851
+Feb 11 15:47:53 srv658856 gunicorn[301852]: [2025-02-11 15:47:53 +0000] [301852] [INFO] Booting worker with pid: 301852
