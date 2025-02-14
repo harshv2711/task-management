@@ -32,6 +32,14 @@ def home(request):
     for team in teamList:
         print(team, "[TEAM]")
         team.teamMembers = models.TeamMember.objects.filter(team=team).order_by("user__first_name")
+        userCanViewOtherTeamMemberTaskList = models.AllowUserToViewOtherTeamMemberTask.objects.filter(user=request.user.id)
+        team.teamMembers = []
+        for i in userCanViewOtherTeamMemberTaskList:
+            if i.team_member.team.id == team.id:
+                team.teamMembers.append(i.team_member)
+
+      
+
         for teamMember in team.teamMembers:
             print(teamMember, "+++++")
             teamMemberClientWorkList = models.ClientWork.objects.filter(assign_to=teamMember.user).order_by("-id")
