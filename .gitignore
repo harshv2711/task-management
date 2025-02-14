@@ -1,0 +1,80 @@
+# Python and Virtual Environment
+__pycache__/
+*.py[cod]
+*.pyc
+*.pyo
+*.pyd
+*.env
+*.venv/
+*.envrc
+*.log
+.env
+.venv/
+venv/
+Pipfile
+Pipfile.lock
+
+# Django Specific
+db.sqlite3
+*.sqlite3
+*.log
+media/
+staticfiles/
+static/
+*.bak
+
+# Gunicorn
+gunicorn.sock
+
+# IDE and Editor Files
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS Generated Files
+.DS_Store
+Thumbs.db
+
+# Migrations Cache
+**/migrations/__pycache__/
+**/migrations/*.pyc
+**/migrations/*.pyo
+**/migrations/*.log
+
+# Test Coverage
+htmlcov/
+.coverage
+*.cover
+.coverage.*
+
+# Nginx Logs
+*.pid
+*.seed
+*.bak
+*.old
+
+# Security Keys
+secrets.json
+
+# Celery
+celerybeat-schedule
+celerybeat.pid
+
+# Compiled Files
+*.so
+*.egg
+*.egg-info/
+*.dist-info/
+
+# Node.js Dependencies (if applicable)
+node_modules/
+npm-debug.log
+yarn-error.log
+
+# Backup Files
+*.orig
+*.~*
+*.tmp
+*.old
+*.swp

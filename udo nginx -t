@@ -1,0 +1,11 @@
+[0;1;32m●[0m gunicorn_task.service - Gunicorn daemon for Task Management
+     Loaded: loaded (]8;;file://srv658856/etc/systemd/system/gunicorn_task.service/etc/systemd/system/gunicorn_task.service]8;;; [0;1;32menabled[0m; preset: [0;1;32menabled[0m)
+     Active: [0;1;32mactive (running)[0m since Fri 2025-02-14 17:44:46 UTC; 48ms ago
+   Main PID: 393513 (gunicorn)
+      Tasks: 1 (limit: 4658)
+     Memory: 2.6M (peak: 2.7M)
+        CPU: 16ms
+     CGroup: /system.slice/gunicorn_task.service
+             └─[0;38;5;245m393513 /var/www/task-management/venv/bin/python3 /var/www/task-management/venv/bin/gunicorn --workers 3 --bind unix:/var/www/task-management/gunicorn.sock project_management.wsgi:application[0m
+
+Feb 14 17:44:46 srv658856 systemd[1]: Started gunicorn_task.service - Gunicorn daemon for Task Management.
