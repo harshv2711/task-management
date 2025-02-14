@@ -105,5 +105,13 @@ class UserCanManageOtherTeamMemberTask(models.Model):
     team_member = models.ForeignKey(TeamMember, on_delete=models.CASCADE)
 
     def __str__(self):
-        return f"{self.user.first_name}- {self.user.email} can Manage {self.team_member.first_name}- {self.team_member.email}"
+        return f"Allowed {self.user.first_name} - {self.user.email} to manage {self.team_member.user.first_name} - {self.team_member.user.email} task"
     
+class UserCanViewOtherTeamMemberTask(models.Model):
+    user = models.ForeignKey(User, on_delete= models.CASCADE)
+    team_member = models.ForeignKey(TeamMember, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return f"Allowed {self.user.first_name} - {self.user.email} to manage {self.team_member.user.first_name} - {self.team_member.user.email} task"
+    
+
