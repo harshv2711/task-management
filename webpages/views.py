@@ -25,14 +25,14 @@ def home(request):
         return redirect("webpages-new-user-welcome")
     
     teamList = models.Team.objects.all()
-    teamList = models.UserTeamViewPermission.objects.filter(user=request.user.id)
+    teamList = models.UserTeamViewPermission.objects.filter(user=request.user.id).order_by("team__team_name")
     teamList = [i.team for i in teamList]
     print(teamList)
 
     for team in teamList:
         print(team, "[TEAM]")
         team.teamMembers = models.TeamMember.objects.filter(team=team).order_by("user__first_name")
-        userCanViewOtherTeamMemberTaskList = models.AllowUserToViewOtherTeamMemberTask.objects.filter(user=request.user.id)
+        userCanViewOtherTeamMemberTaskList = models.AllowUserToViewOtherTeamMemberTask.objects.filter(user=request.user.id).order_by("team_member__user__first_name")
         team.teamMembers = []
         for i in userCanViewOtherTeamMemberTaskList:
             if i.team_member.team.id == team.id:
