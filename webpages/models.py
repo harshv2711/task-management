@@ -88,8 +88,8 @@ class TeamMember(models.Model):
 
 class UserTeamViewPermission(models.Model):
     class Meta:
-        verbose_name = "User Team View Permission"
-        verbose_name_plural = "User Team View Permissions"
+        verbose_name = "Allow user to view team dasboard"
+        verbose_name_plural = "Allow user to view team dasboard"
 
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     team = models.ForeignKey(Team, on_delete=models.CASCADE)
@@ -99,3 +99,19 @@ class UserTeamViewPermission(models.Model):
 
     def __str__(self):
         return f"{self.user.first_name} - {self.user.email} can view {self.team.team_name}"
+
+
+class AllowUserToViewOtherTeamMemberTask(models.Model):
+    user = models.ForeignKey(User, on_delete= models.CASCADE)
+    team_member = models.ForeignKey(TeamMember, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return f"Allowed {self.user.first_name} - {self.user.email} to view {self.team_member.user.first_name} - {self.team_member.user.email} task board"
+
+    # UserCanManageOtherTeamMemberTask
+class AllowUserToManageOtherTeamMemberTaskBoard(models.Model):
+    user = models.ForeignKey(User, on_delete= models.CASCADE)
+    team_member = models.ForeignKey(TeamMember, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return f"Allowed {self.user.first_name} - {self.user.email} to manage {self.team_member.user.first_name} - {self.team_member.user.email} task"
