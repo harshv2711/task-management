@@ -99,3 +99,11 @@ class UserTeamViewPermission(models.Model):
 
     def __str__(self):
         return f"{self.user.first_name} - {self.user.email} can view {self.team.team_name}"
+    
+class UserCanManageOtherTeamMemberTask(models.Model):
+    user = models.ForeignKey(User, on_delete= models.CASCADE)
+    team_member = models.ForeignKey(TeamMember, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return f"{self.user.first_name}- {self.user.email} can Manage {self.team_member.first_name}- {self.team_member.email}"
+    
